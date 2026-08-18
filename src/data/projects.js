@@ -9,8 +9,8 @@ export const projects = [
     description: 'Full-stack stock market tracking and alerts platform.',
     techStack: ['Next.js', 'MongoDB', 'Inngest'],
     image: signalistImage,
-    link: '#',
-    github: '#',
+    link: 'https://stocktradersignalist.vercel.app/sign-in',
+    github: 'https://github.com/AbhishekV-2006/Signalist',
     details:
       'Built around watchlists, alerts, and event-driven workflows for tracking market movements in one place.',
   },
@@ -20,8 +20,8 @@ export const projects = [
     description: 'Real-time chat application with decoupled frontend and backend services.',
     techStack: ['React', 'Socket.io', 'Express'],
     image: talkloopImage,
-    link: '#',
-    github: '#',
+    link: 'https://talkloop-8h1v.onrender.com/login',
+    github: 'https://github.com/AbhishekV-2006/TalkLoop',
     details:
       'Focused on low-latency messaging, room-based conversations, and a simple UI for conversation flow.',
   },
@@ -32,7 +32,7 @@ export const projects = [
     techStack: ['Oracle SQL', 'PL/SQL', 'Database Design'],
    // image: hospitalImage,
     link: '#',
-    github: '#',
+    github: 'https://github.com/AbhishekV-2006/Hospital-Management-System',
     details:
       'Models hospital data, workflow automation, and normalized storage for practical database operations.',
   },

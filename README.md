@@ -1,16 +1,51 @@
-# React + Vite
+# Portfolio Website
+A modern, responsive portfolio website showcasing full-stack projects and development experience. Built with React, Vite, and React Router.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Features
 
-Currently, two official plugins are available:
+Multi-page Navigation: Home, About, Projects, and Contact pages with React Router
+Project Showcase: Display detailed project cards with tech stack, descriptions, and links
+Theme Support: Light and dark mode toggle for better user experience
+Responsive Design: Mobile-friendly layout using CSS
+Dynamic Content: Projects data stored in a centralized data file for easy updates
+ESLint Configuration: Code quality and consistency checks
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+## Available Routes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+ `/` → Redirects to `/home`
+ `/home` → Home page
+ `/about` → About page-
+ `/projects` → Projects listing page
+ `/contact` → Contact page
+ `*` → Not found (redirects to home)
 
-## Expanding the ESLint configuration
+Features Explained
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Components
+
+Layout: Wrapper component that includes NavBar and Footer
+NavBar: Navigation menu with theme toggle
+Footer: Footer information
+ProjectCard: Reusable component for displaying project information
+
+Pages
+
+HomePage: Landing page with featured content
+AboutPage: Personal or professional information
+ProjectsPage: Gallery of all projects
+ProjectDetailPage: Detailed view of individual projects
+ContactPage: Contact form or information
+NotFoundPage: 404 error page
+
+Project Card type
+{
+  id: 'project-id',
+  title: 'Project Title',
+  description: 'Short description',
+  techStack: ['React', 'Node.js'],
+  image: imageImport,
+  link: 'project-url',
+  github: 'github-url',
+  details: 'Detailed description'
+}
