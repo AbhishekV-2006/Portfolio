@@ -22,15 +22,22 @@ export default function ProjectDetailPage() {
   }, [projectId]);
 
   if (loadedProjectId !== projectId && !error) {
-    return <section className="section"><div className="container detail-card"><p role="status">Loading project...</p></div></section>;
+    return (
+      <section className="section project-detail-section">
+        <div className="container detail-card project-detail-status">
+          <p className="section-tag">Project detail</p>
+          <p role="status">Loading project...</p>
+        </div>
+      </section>
+    );
   }
 
   if (error) {
     return (
-      <section className="section">
-        <div className="container detail-card">
+      <section className="section project-detail-section">
+        <div className="container detail-card project-detail-status">
           <p className="section-tag">Projects</p>
-          <h2>Project not found</h2>
+          <h1>Project not found</h1>
           <p>{error === 'Project not found' ? error : `Unable to load project: ${error}`}</p>
           <Link className="button button-primary" to="/projects">
             Back to Projects
@@ -41,25 +48,50 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <section className="section">
-      <div className="container detail-card">
-        <p className="section-tag">Project Detail</p>
-        <h2>{project.title}</h2>
-        <p>{project.description}</p>
-        <p>{project.details}</p>
-        <ul className="project-tags" aria-label="Project technologies">
-          {project.techStack.map((tech) => (
-            <li key={tech}>{tech}</li>
-          ))}
-        </ul>
-        <div className="project-links">
-          <Link className="project-link" to="/projects">
-            Back to Projects
-          </Link>
-          <a className="project-link" href={project.link}>
-            Live
-          </a>
-        </div>
+    <section className="section project-detail-section">
+      <div className="container">
+        <Link className="detail-back-link" to="/projects">
+          <span aria-hidden="true">←</span> Back to projects
+        </Link>
+
+        <article className="project-detail-card content-card">
+          <div className="project-detail-visual">
+            <img src={project.image} alt={`${project.title} project preview`} />
+            <span className="project-detail-index">Case study / {project.id}</span>
+          </div>
+
+          <div className="project-detail-content">
+            <div className="project-detail-heading">
+              <p className="section-tag">Selected work</p>
+              <h1>{project.title}</h1>
+              <p className="project-detail-description">{project.description}</p>
+            </div>
+
+            <div className="project-detail-copy">
+              <p className="project-detail-label">Overview</p>
+              <p>{project.details}</p>
+            </div>
+
+            <div className="project-detail-meta">
+              <div>
+                <p className="project-detail-label">Built with</p>
+                <ul className="project-tags" aria-label={`${project.title} technologies`}>
+                  {project.techStack.map((tech) => (
+                    <li key={tech}>{tech}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="project-detail-actions">
+                <a className="button button-primary" href={project.link} target="_blank" rel="noreferrer">
+                  View live project <span aria-hidden="true">↗</span>
+                </a>
+                <a className="button button-secondary" href={project.github} target="_blank" rel="noreferrer">
+                  View source <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   );
