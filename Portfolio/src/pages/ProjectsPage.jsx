@@ -1,7 +1,19 @@
+import { useEffect, useState } from 'react';
 import ProjectCard from '../components/ProjectCard';
-import { projects } from '../data/projects';
+import { fetchApi } from '../api';
 
 export default function ProjectsPage() {
+  const [projects, setProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetchApi('/api/projects')
+      .then(setProjects)
+      .catch((requestError) => setError(requestError.message))
+      .finally(() => setIsLoading(false));
+  }, []);
+
   return (
     <section className="section">
       <div className="container">
@@ -15,7 +27,9 @@ export default function ProjectsPage() {
           </p>
         </div>
 
-        <div className="project-grid">
+        {isLoading && <p role="status">Loading projects...</p>}
+        {error && <p role="alert">Unable to load projects: {error}</p>}
+        {!isLoading && !error && <div className="project-grid">
           {projects.map((project) => (
             <ProjectCard
               key={project.id}
@@ -29,7 +43,7 @@ export default function ProjectsPage() {
               details={project.details}
             />
           ))}
-        </div>
+        </div>}
       </div>
     </section>
   );

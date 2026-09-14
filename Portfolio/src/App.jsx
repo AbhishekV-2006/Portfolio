@@ -4,8 +4,9 @@ import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
+import ProjectDetailPage from './pages/ProjectDetailPage'
 import ContactPage from './pages/ContactPage'
-
+import NotFoundPage from './pages/NotFoundPage'
 function AppRoutes({ toggleTheme, theme }) {
   return (
     <Layout toggleTheme={toggleTheme} theme={theme}>
@@ -14,8 +15,9 @@ function AppRoutes({ toggleTheme, theme }) {
         <Route path="/home" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
   )

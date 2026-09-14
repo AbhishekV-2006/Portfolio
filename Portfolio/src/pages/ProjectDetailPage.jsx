@@ -1,17 +1,37 @@
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getProjectById } from '../data/projects';
+import { fetchApi } from '../api';
 
 export default function ProjectDetailPage() {
   const { projectId } = useParams();
-  const project = getProjectById(projectId);
+  const [project, setProject] = useState(null);
+  const [loadedProjectId, setLoadedProjectId] = useState(null);
+  const [error, setError] = useState('');
 
-  if (!project) {
+  useEffect(() => {
+    fetchApi(`/api/projects/${projectId}`)
+      .then((data) => {
+        setProject(data);
+        setLoadedProjectId(projectId);
+        setError('');
+      })
+      .catch((requestError) => {
+        setLoadedProjectId(projectId);
+        setError(requestError.message);
+      });
+  }, [projectId]);
+
+  if (loadedProjectId !== projectId && !error) {
+    return <section className="section"><div className="container detail-card"><p role="status">Loading project...</p></div></section>;
+  }
+
+  if (error) {
     return (
       <section className="section">
         <div className="container detail-card">
           <p className="section-tag">Projects</p>
           <h2>Project not found</h2>
-          <p>The project identifier in the URL does not match any project in the data file.</p>
+          <p>{error === 'Project not found' ? error : `Unable to load project: ${error}`}</p>
           <Link className="button button-primary" to="/projects">
             Back to Projects
           </Link>

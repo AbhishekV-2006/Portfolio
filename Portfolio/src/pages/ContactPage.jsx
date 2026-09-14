@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { fetchApi } from '../api'
 
 function ContactPage() {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ function ContactPage() {
   })
 
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -20,13 +23,20 @@ function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Here you would typically send the form data to a backend
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setFormData({ name: '', email: '', subject: '', message: '' })
-    
-    // Reset success message after 3 seconds
-    setTimeout(() => setSubmitted(false), 3000)
+    setIsSubmitting(true)
+    setSubmitted(false)
+    setError('')
+
+    fetchApi('/api/contact', {
+      method: 'POST',
+      body: JSON.stringify(formData)
+    })
+      .then(() => {
+        setSubmitted(true)
+        setFormData({ name: '', email: '', subject: '', message: '' })
+      })
+      .catch((requestError) => setError(requestError.message))
+      .finally(() => setIsSubmitting(false))
   }
 
   return (
@@ -45,6 +55,7 @@ function ContactPage() {
               ✓ Thanks for your message! I'll get back to you soon.
             </div>
           )}
+          {error && <div className="error-message" role="alert">{error}</div>}
 
           <form onSubmit={handleSubmit} className="contact-form">
             <div className="form-group">
@@ -99,7 +110,9 @@ function ContactPage() {
               ></textarea>
             </div>
 
-            <button type="submit" className="submit-btn">Send Message</button>
+            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
           </form>
         </div>
 

@@ -1,4 +1,6 @@
-export default function ProjectCard({ title, description, techStack, image, link, github, details }) {
+import { Link } from 'react-router-dom';
+
+export default function ProjectCard({ id, title, description, techStack, image, link, github, details }) {
   return (
     <article className="project-card content-card">
       <div className="project-card-media">
@@ -20,6 +22,7 @@ export default function ProjectCard({ title, description, techStack, image, link
           </ul>
 
           <div className="project-card-links">
+            <Link to={`/projects/${id}`}>Details</Link>
             <a href={link} target="_blank" rel="noreferrer">
               Live Demo
             </a>
